@@ -27,7 +27,21 @@ public class RegistrationDAO {
             
             if (conn.isValid(0)) {
                 
-                // INSERT YOUR CODE HERE
+                String queryStatement = "INSERT INTO registration (studentid, termid, crn) VALUES (?, ?, ?)";
+
+                ps = conn.prepareStatement(queryStatement);
+                
+                ps.setInt(1, studentid);
+                ps.setInt(2, termid);
+                ps.setInt(3, crn);
+                
+                
+                
+                result = ps.executeUpdate()>0;
+                
+                
+                
+                                
                 
             }
             
@@ -58,9 +72,19 @@ public class RegistrationDAO {
             
             if (conn.isValid(0)) {
                 
-                // INSERT YOUR CODE HERE
+                String sql = "DELETE FROM registration WHERE studentid = ? AND termid = ? AND crn = ?";
                 
-            }
+                ps = conn.prepareStatement(sql);
+                
+                ps.setInt(1, studentid);
+                ps.setInt(2, termid);
+                ps.setInt(3, crn);
+                
+                result = ps.executeUpdate()>0;
+                
+                
+                            
+            }   
             
         }
         
@@ -88,7 +112,13 @@ public class RegistrationDAO {
             
             if (conn.isValid(0)) {
                 
-                // INSERT YOUR CODE HERE
+                String sql = "DELETE FROM registration WHERE studentid = ? AND termid = ?";
+                
+                ps = conn.prepareStatement(sql);
+                ps.setInt(1, studentid);
+                ps.setInt(2, termid);
+                
+                result = ps.executeUpdate()>0;
                 
             }
             
@@ -120,7 +150,16 @@ public class RegistrationDAO {
             
             if (conn.isValid(0)) {
                 
-                // INSERT YOUR CODE HERE
+                String sql = "SELECT studentid, termid, crn FROM registration WHERE studentid = ? AND termid = ? ORDER BY crn";
+                
+                ps = conn.prepareStatement(sql);
+                
+                ps.setInt(1, studentid);
+                ps.setInt(2, termid);
+                
+                rs = ps.executeQuery();
+                
+                return DAOUtility.getResultSetAsJson(rs);
                 
             }
             
